@@ -8,7 +8,7 @@
 
         public function about()
         {
-            echo "About us";
+            $this->load->view('about');
         }
     }
 ?>
