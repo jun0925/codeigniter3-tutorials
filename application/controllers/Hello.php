@@ -39,5 +39,15 @@
             // view()메서드 2번째 인자에 배열로 값을 전달하면 View에서 사용할수 있다. View에서 표시할 데이터를 전달.
             $this->load->view('display_records', $result);
         }
+
+        public function deletedata()
+        {
+            // id값을 get타입으로 받아옵니다.
+            $id = $this->input->get('id');
+            // Hello_Model에 있는 deleterecords 메서드 호출
+            $this->Hello_Model->deleterecords($id);
+            // url을 Hello/dispdate로 이동시킴
+            redirect("Hello/dispdata");
+        }
     }
 ?>

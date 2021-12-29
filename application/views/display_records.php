@@ -13,6 +13,7 @@
             <th>이름</th>
             <th>이메일</th>
             <th>연락처</th>
+            <th>삭제하기</th>
         </tr>
         <?php 
         $i = 1;
@@ -23,6 +24,7 @@
             echo "<td>".$row->name."</td>";
             echo "<td>".$row->email."</td>";
             echo "<td>".$row->mobile."</td>";
+            echo "<td><a href='deletedata?id=".$row->user_id."'>삭제</a></td>";
             echo "</tr>";
             $i++;
         }
