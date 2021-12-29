@@ -49,5 +49,28 @@
             // url을 Hello/dispdate로 이동시킴
             redirect("Hello/dispdata");
         }
+
+        public function updatedata()
+        {
+            // id값을 get타입으로 받아옵니다.
+            $id = $this->input->get('id');
+            // Hello_Model에 있는 displayrecordsById 메서드 호출 결과값을 $result에 담습니다.
+            $result['data'] = $this->Hello_Model->displayrecordsById($id);
+            // update_records view에 $result값을 전달하여 호출합니다.
+            $this->load->view('update_records', $result);
+
+            // update에 값이 전송되오면 아래 로직을 실행합니다.
+            if($this->input->post('update'))
+            {
+                // post로 전달된 데이터를 변수에 담습니다.
+                $n = $this->input->post('name');
+                $e = $this->input->post('email');
+                $m = $this->input->post('mobile');
+                // Hello_Model에 있는 updaterecords 메서드를 호출합니다.
+                $this->Hello_Model->updaterecords($n, $e, $m, $id);
+                // Hello/dispdata로 리다이렉트 합니다.
+                redirect("Hello/dispdata");
+            }
+        }
     }
 ?>

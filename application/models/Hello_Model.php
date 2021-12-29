@@ -17,5 +17,16 @@ class Hello_Model extends CI_Model
     {
         $this->db->query("delete from users where user_id='".$id."'");
     }
+
+    function displayrecordsById($id)
+    {
+        $query = $this->db->query("select * from users where user_id='".$id."'");
+        return $query->result();
+    }
+
+    function updaterecords($name, $email, $mobile, $id)
+    {
+        $this->db->query("update users set name='$name',email='$email',mobile='$mobile' where user_id='".$id."'");
+    }
 }
 ?>
