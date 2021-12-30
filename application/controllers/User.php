@@ -40,5 +40,38 @@ class User extends CI_Controller
         // student_registration view파일에 $data 값을 전달해서 호출
         $this->load->view('student_registration', @$data);
     }
+
+    public function login()
+    {
+        // login value값이 있는 경우
+        if($this->input->post('login'))
+        {
+            $e = $this->input->post('email');
+            $p = $this->input->post('pass');
+
+            // contollrer에서 query실행합니다.
+            $query = $this->db->query("select * from student where email='$e' and password='$p'");
+            // 쿼리 결과열의 개수를 리턴합니다.
+            $row = $query->num_rows();
+            if($row > 0)
+            {
+                // 이메일과 비밀번호하고 일치하는 데이터가 있으면 dashboard로 리다이렉트 합니다.
+                redirect('User/dashboard');
+            }
+            else
+            {
+                // 일치하지 않으면 에러 메시지를 생성합니다.
+                $data['error'] = '<h3 style="color:red">Invlid login details</h3>';
+            }
+        }
+        // 로그인 정보가 일치하지 않으면 error 메시지를 login view에 전달해서 호출합니다.
+        $this->load->view('login', @$data);
+    }
+
+    public function dashboard()
+    {
+        // dashboard view 파일을 호출합니다.
+        $this->load->view('dashboard');
+    }
 }
 ?>
