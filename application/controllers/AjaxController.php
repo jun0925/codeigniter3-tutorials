@@ -25,5 +25,20 @@ class AjaxController extends CI_Controller
             echo 0;
         }
     }
+
+    public function checkUser()
+    {
+        $email = $this->input->post('email');
+        $this->load->model('AjaxModel');
+        $result = $this->AjaxModel->checkuser($email);
+        if($result)
+        {
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+    }
 }
 ?>

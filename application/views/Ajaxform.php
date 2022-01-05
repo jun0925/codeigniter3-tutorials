@@ -19,9 +19,10 @@
         <div class="form-group">
             <label for="email">Enter Your Email:</label>
             <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" />
+            <div id="msg"></div>
         </div>
         <div class="form-group">
-            <label for="email">Enter Your Course:</label>
+            <label for="course">Enter Your Course:</label>
             <input type="text" name="course" id="course" class="form-control" placeholder="Enter course">
         </div>
         <input type="button" value="save data" class="btn btn-primary" id="butsave" />
@@ -30,6 +31,43 @@
         // Ajax post
         $(document).ready(function()
         {
+            // blur() 대상 엘리먼트가 포커스를 잃었을 때 이벤트를 처리하는 이벤트 핸들러
+            $("#email").blur(function(){
+                let email = $("#email").val();
+                if(email != "")
+                {
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url('/AjaxController/checkUser'); ?>",
+                        dataType: "html",
+                        data: {email: email},
+                        success: function(res)
+                        {
+                            if(res == 1)
+                            {
+                                $("#msg").addClass("invalid-feedback");
+                                $("#msg").css({"display":"block"});
+                                $("#msg").html("This email already exists");
+                            }
+                            else
+                            {
+                                $("#msg").addClass("valid-feedback");
+                                $("#msg").css({"display":"block"});
+                                $("#msg").html("Congrates email available!");
+                            }
+                        },
+                        error:function()
+                        {
+                            alert('some error');
+                        }
+                    });
+                }
+                else
+                {
+                    alert("pls enter your email id");
+                }
+            });
+
             $("#butsave").click(function()
             {
                 let name = $("#name").val();
